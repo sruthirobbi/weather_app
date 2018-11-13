@@ -85,15 +85,12 @@
                             datatype: 'json',
                             async:false,
                             success: function(response) {
-                                data = response;
+                                data = response.list;
                             }
                 });
             }
             
-            list1 = data.list;
-            console.log(list1);
-            
-            $.each( list1, function( i, val ) {
+            $.each( data, function( i, val ) {
                 
                 listData = val;
                 date = listData.dt_txt;
