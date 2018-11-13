@@ -92,6 +92,8 @@
             
             list1 = data.list;
             console.log(list1);
+             if(list1){
+
             $.each( list1, function( i, val ) {
                 
                 listData = val;
@@ -125,7 +127,7 @@
             var iconurl = "http://openweathermap.org/img/w/" + icon + ".png";
             
             $('#wicon').attr('src', iconurl);
-
+             }
 
         });
         </script>
