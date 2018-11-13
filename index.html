@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.css">
+        <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+        <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+        <script type="text/javascript" src="js/script.js"></script>
+        <script type="text/javascript" src="bootstrap/dist/js/bootstrap.min.js"></script>
+    </head>
+    <body id="body">
+        <div class="app">
+            <div class="title">Local Weather</div>
+            
+            <div class="mainDiv">
+                    <div><span id="displayCity"></span></div>
+                    <div>Temp: <span id="temp0" class="temp"></span>c</div>
+                    <div><span id="desc0"></span><span id="descimg"></span></div>
+                    <div id="icon"><img id="wicon0" src="" alt="Weather icon"></div>
+            </div>
+            <div  class="title">Weather Forecast</div>
+            <div class="forecast">
+                
+                    <div style="text-align:center">
+                            <div id="date1"></div>
+                            <div>Temp: <span id="temp1" class="temp"></span>c</div>
+                            <div><span id="desc1"></span><span id="descimg"></span></div>
+                            <div id="icon"><img id="wicon1" src="" alt="Weather icon"></div>
+                            
+                    </div>
+                    <div style="text-align:center">
+                                <div id="date2"></div>
+                                <div>Temp: <span id="temp2" class="temp"></span>c</div>
+                                <div><span id="desc2"></span><span id="descimg"></span></div>
+                                <div id="icon"><img id="wicon2" src="" alt="Weather icon"></div>
+                    </div>
+                    <div style="text-align:center">
+                               
+                            <div id="date3"></div>
+                            <div>Temp: <span id="temp3" class="temp"></span>c</div>
+                            <div><span id="desc3"></span><span id="descimg"></span></div>
+                            <div id="icon"><img id="wicon3" src="" alt="Weather icon"></div>
+                            
+                           
+                    </div>
+            </div>
+            
+        </div>
+        <div></div>
+        <script type="text/javascript">
+        $(document).ready(function(){
+        //get location using IP address from ipinfo.io
+           $.ajax({
+                type:'GET',
+                url: "http://ipinfo.io/json",
+                dataType: 'json',
+                async:false,
+                success: function(response) {
+                    var location = (response.loc);
+                    var city = (response.city);
+                    var country = (response.country);
+                    $('#displayCity').append(city);
+                    weatherData(city);
+                }
+            });
+            var data;
+            var city;
+            var sunset;
+            var sunrise;
+            var date;
+            var temp;
+            var description;
+            var minTemp;
+            var maxTemp;
+            var windSpeed;
+            var cloud;
+            var icon;
+            var list1;
+            var listData;
+
+            function weatherData(request){
+                $.ajax({
+                            type:'GET',
+                            url: "https://api.openweathermap.org/data/2.5/forecast?q="+request+"&apikey=12f5abd9072404a5fed851e9575f2bee&units=metric&cnt=4",
+                            datatype: 'json',
+                            async:false,
+                            success: function(response) {
+                                data = response;
+                            }
+                });
+            }
+            
+            list1 = data.list;
+            console.log(list1);
+            $.each( list1, function( i, val ) {
+                
+                listData = val;
+                date = listData.dt_txt;
+                dateSplit= date.split(" ");
+                // alert(dateSplit[0]);
+                console.log(listData);
+                $('#temp'+i).prepend(listData.main.temp);
+                $('#desc'+i).append(listData.weather[0].description);
+                $('#date'+i).append(date);
+                icons = listData.weather[0].icon;
+                var iconurl = "http://openweathermap.org/img/w/" + icons + ".png";
+                $('#wicon'+i).attr('src', iconurl);
+            });
+    
+            
+            temp = listData.main.temp;
+            description =listData.weather[0].description;
+            minTemp = listData.main.temp_min;
+            maxTemp = listData.main.temp_max;
+            windSpeed = listData.wind.speed;
+            cloud = listData.clouds.all;
+            sunrise = listData.sys.sunrise;
+            sunset = listData.sys.sunset;
+            city = data.name;
+            icon = listData.weather[0].icon;
+            date= listData.dt_txt;
+            $('#temp').prepend(temp);
+            $('#desc').append(description);
+
+            var iconurl = "http://openweathermap.org/img/w/" + icon + ".png";
+            
+            $('#wicon').attr('src', iconurl);
+
+
+        });
+        </script>
+    </body>
+    </html>

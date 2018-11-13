@@ -1,0 +1,48 @@
+#body{
+    padding:1%;
+    width:100%;
+    height:100%;
+    background: url(http://res.cloudinary.com/dntibs7fr/image/upload/v1530713868/daniel-pascoa-267957-unsplash.jpg);
+    background-size:cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.app{
+    margin:auto;
+    
+    width:60%;
+    height:90vh;
+    border-radius: 3%;
+    box-shadow: 1px 4px 24px rgba(0,0,0,0.5);
+    display:flex;
+    font-family: 'Playfair Display', serif;
+    flex-direction: column;
+
+}
+.title{
+    font-size: 4vw;
+    width:100%;
+    text-align: center;
+    color: white;
+    margin:2%;
+    text-shadow: 2px 2px rgba(0,0,0,0.4);
+}
+.temp:after{
+        content: " \00b0"
+}
+.mainDiv{
+    text-align: center;
+    color: white;
+    text-shadow: 1px 1px rgba(0,0,0,0.4);
+}
+#displayCity{
+    font-size:2vw;
+}
+.forecast{
+    display: flex;
+    color: white;
+    justify-content: space-around;
+    text-shadow: 1px 1px rgba(0,0,0,0.4)
+}
